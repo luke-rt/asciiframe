@@ -13,9 +13,13 @@ pub struct Opt {
 	#[clap(help = "Use colors", short, long)]
 	pub color: bool,
 
-	#[clap(help = "Output to a script file for sharing", short, long = "output-file")]
+	#[clap(
+		help = "Output to a script file for sharing",
+		short,
+		long = "output-file"
+	)]
 	pub output: bool,
 
-    #[clap(help = "Video filename", short, long, parse(from_os_str), validator_os = validators::path_readable_video)]
+	#[clap(help = "Video filename", short, long, parse(from_os_str), validator_os = validators::path_is_readable_video)]
 	pub file: PathBuf,
 }

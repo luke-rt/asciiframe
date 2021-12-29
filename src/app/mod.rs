@@ -1,12 +1,13 @@
-use std::ffi::OsString;
 use clap::Parser;
 
 mod opt;
 mod render;
 mod validators;
 
-pub fn main() -> Result<(), OsString> {
+pub fn main() -> Result<(), String> {
 	let opts = opt::Opt::parse();
 
-    Ok(())
+	validators::cwd_is_writable(&opts.file)?;
+
+	Ok(())
 }
