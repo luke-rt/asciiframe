@@ -1,7 +1,6 @@
 use std::fs::File;
 use std::path::Path;
 use std::result::Result;
-
 use faccess::PathExt;
 
 pub fn path_is_readable_video<P: AsRef<Path> + ?Sized>(

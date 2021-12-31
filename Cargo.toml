@@ -6,4 +6,5 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "3.0.0-rc.9", features = ["derive", "cargo"] }
+opencv = "0.61"
 faccess = "0.2.3"
