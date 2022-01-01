@@ -19,4 +19,5 @@ fn main() {
 		println!("For more information try --help");
 	}
 
+	println!("Done!");
 }
