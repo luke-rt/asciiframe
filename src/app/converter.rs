@@ -1,0 +1,65 @@
+// given frame use conversion method on frame
+// return string of ascii characters for that frame
+use opencv::prelude::*;
+
+pub const ASCII: u8 = 0;
+pub const COLOR_ASCII: u8 = 1;
+pub const CHARS: [char; 11] =
+	[' ', ' ', '.', ':', '!', '+', '*', 'e', '$', '@', '8'];
+
+pub fn convert_frame(
+	frame: &Mat,
+	strategy: u8,
+) -> Result<String, opencv::Error> {
+	let mut res = String::default();
+
+	for i in 0..frame.rows() {
+		res = res + "\n";
+		for j in 0..frame.cols() {
+			let bgr: &opencv::core::Vec3b =
+				frame.at_2d::<opencv::core::Vec3b>(i, j)?;
+			res.push(convert_pxl(bgr, strategy).unwrap());
+		}
+	}
+
+	Ok(res)
+}
+
+fn convert_pxl(bgr: &opencv::core::Vec3b, strategy: u8) -> Result<char, ()> {
+	let b = *bgr.get(0).unwrap();
+	let g = *bgr.get(1).unwrap();
+	let r = *bgr.get(2).unwrap();
+
+	match strategy {
+		ASCII => to_ascii(r, g, b, strategy),
+		COLOR_ASCII => to_color_ascii(r, g, b),
+		_ => Err(()),
+	}
+}
+
+// conversion strategies
+fn to_ascii(r: u8, g: u8, b: u8, strategy: u8) -> Result<char, ()> {
+	Ok(rgb_to_ascii_char(r, g, b, strategy)?)
+}
+
+fn to_color_ascii(r: u8, g: u8, b: u8) -> Result<char, ()> {
+	Ok(' ')
+}
+
+// util functions
+fn rgb_to_ascii_char(r: u8, g: u8, b: u8, strategy: u8) -> Result<char, ()> {
+	let brightness: f32;
+	if strategy == ASCII {
+		brightness =
+			0.2126 * (r as f32) + 0.7152 * (g as f32) + 0.0722 * (b as f32);
+	} else if strategy == COLOR_ASCII {
+		brightness =
+			0.267 * (r as f32) + 0.642 * (g as f32) + 0.091 * (b as f32);
+	} else {
+		return Err(());
+	}
+
+	Ok(CHARS[(10.0 * brightness / 255.0) as usize])
+}
+
+fn rgb_to_ansi_color(r: u8, g: u8, b: u8) {}
