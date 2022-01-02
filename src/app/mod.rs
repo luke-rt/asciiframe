@@ -13,7 +13,12 @@ pub fn main() -> Result<(), String> {
 		validators::cwd_is_writable(&std::env::current_dir().unwrap())?;
 	}
 
-	match renderer::render(&opts.file, opts.output, converter::ASCII) {
+	let mut strategy = converter::ASCII;
+	if opts.color {
+		strategy = converter::COLOR_ASCII;
+	}
+
+	match renderer::render(&opts.file, opts.output, strategy) {
 		Err(e) => {
 			return Err(format!("OpenCV error code {}:\n{}", e.code, e.message))
 		}
