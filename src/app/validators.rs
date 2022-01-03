@@ -6,7 +6,6 @@ use std::result::Result;
 pub fn path_is_readable_video<P: AsRef<Path> + ?Sized>(
 	p: &P,
 ) -> Result<(), String> {
-	// TODO: figure out why OsString leads to a compile time err
 	let path = p.as_ref();
 
 	if path.is_dir() {
@@ -38,4 +37,16 @@ pub fn cwd_is_writable<P: AsRef<Path> + ?Sized>(p: &P) -> Result<(), String> {
 		"Would be unable to write to destination directory: {}",
 		path.display()
 	))
+}
+
+pub fn file_does_not_exist<P: AsRef<Path> + ?Sized>(
+	p: &P,
+) -> Result<(), String> {
+	let path = p.as_ref();
+
+	if path.exists() {
+		return Err(format!("File already exists: {}", path.display()));
+	}
+
+	Ok(())
 }

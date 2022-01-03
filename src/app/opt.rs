@@ -9,16 +9,22 @@ pub struct Opt {
 	#[clap(help = "Print everything", short, long)]
 	pub verbose: bool,
 
-	#[clap(help = "Use colors", short, long)]
-	pub color: bool,
-
 	#[clap(
 		help = "Output to a script file for sharing",
 		short,
-		long = "output-file"
-	)]
-	pub output: bool,
+		long = "output",
+        parse(from_os_str),
+        validator_os = validators::cwd_is_writable,
+        validator_os = validators::file_does_not_exist,
+    )]
+	pub output: Option<PathBuf>,
 
-	#[clap(help = "Video filename", short, long, parse(from_os_str), validator_os = validators::path_is_readable_video)]
+	#[clap(
+        help = "Video filename",
+        short,
+        long,
+        parse(from_os_str),
+        validator_os = validators::path_is_readable_video
+    )]
 	pub file: PathBuf,
 }

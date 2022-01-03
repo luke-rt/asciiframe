@@ -1,8 +1,16 @@
 [package]
 name = "asciiframe"
-authors = ["Luke"]
 version = "0.1.0"
+categories = ["command-line-utilities"]
+description = "Watch any video in the terminal with ASCII"
+homepage = "https://github.com/ltgr/asciiframe"
+authors = ["Luke"]
+license = "MIT"
 edition = "2021"
+
+[[bin]]
+name = "asc"
+path = "src/main.rs"
 
 [dependencies]
 clap = { version = "3.0.0-rc.9", features = ["derive", "cargo"] }

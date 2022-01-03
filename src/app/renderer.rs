@@ -17,7 +17,7 @@ use crate::app::converter;
 
 pub fn render(
 	filename: &Path,
-	output: bool,
+	output: Option<&Path>,
 	strategy: u8,
 ) -> Result<(), Error> {
 	let mut capture =
@@ -28,7 +28,6 @@ pub fn render(
 
 	for _i in 0..frame_count {
 		let start = SystemTime::now();
-		print!("{esc}c", esc = 27 as char);
 
 		let mut frame = Mat::default();
 		// CV_8UC3
@@ -47,24 +46,46 @@ pub fn render(
 			imgproc::INTER_AREA,
 		)?;
 
-		frame.release()?;
+		if let Some(P) = output {
+			// if output to file
+			render_frame_to_file(&resized, strategy, P)?;
 
-		render_frame(&resized, strategy, output)?;
-		resized.release()?;
+		// TODO: tell bash script to wait for time_d milliseconds
+		} else {
+			// if output to stdout
+			print!("{esc}c", esc = 27 as char);
 
-		let elapsed = start.elapsed().unwrap().as_secs_f32();
-		if elapsed < time_d {
-			sleep(Duration::from_millis(((time_d - elapsed) * 1000.0) as u64));
+			render_frame(&resized, strategy)?;
+
+			let elapsed = start.elapsed().unwrap().as_secs_f32();
+
+			if elapsed < time_d {
+				sleep(Duration::from_millis(
+					((time_d - elapsed) * 1000.0) as u64,
+				));
+			}
 		}
 	}
 
 	Ok(())
 }
 
-fn render_frame(frame: &Mat, strategy: u8, output: bool) -> Result<(), Error> {
+fn render_frame(frame: &Mat, strategy: u8) -> Result<(), Error> {
 	let ascii = converter::convert_frame(frame, strategy)?;
 
 	println!("{}", ascii);
+
+	Ok(())
+}
+
+fn render_frame_to_file(
+	frame: &Mat,
+	strategy: u8,
+	output: &Path,
+) -> Result<(), Error> {
+	let ascii = converter::convert_frame(frame, strategy)?;
+
+	println!("{}", output.display());
 
 	Ok(())
 }
