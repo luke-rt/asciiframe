@@ -18,9 +18,10 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Dependencies
-      run: |
-        chmod +x ci/deps-debian.sh
-        sudo sh -c ci/deps-debian.sh
+      run: sudo apt-get install clang libclang-dev
+      
+    - name: OpenCV Installation
+      uses: Dovyski/setup-opencv-action@v1
 
     - name: Rust Toolchain
       uses: actions-rs/toolchain@v1
