@@ -1,4 +1,4 @@
-name: Rust
+name: CI
 
 on:
   push:
@@ -10,11 +10,18 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
-
+  ubuntu:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Dependencies
+      run: ci/deps-debian.sh
+
+    - name: Rust Toolchain
+      uses: actions-rs/toolchain@v1
+
     - name: Build
       run: cargo build --verbose
