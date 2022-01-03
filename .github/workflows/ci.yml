@@ -19,12 +19,37 @@ jobs:
 
     - name: Dependencies
       run: sudo apt-get install clang libclang-dev
-      
+
     - name: OpenCV Installation
       uses: Dovyski/setup-opencv-action@v1
 
     - name: Rust Toolchain
-      uses: actions-rs/toolchain@v1
+      uses: actions-rs/toolchain@v1.0.6
+      with:
+        profile: minimal
+        toolchain: nightly
 
     - name: Build
       run: cargo build --verbose
+
+  darwin:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Dependencies
+      run: |
+        brew install llvm
+        brew install opencv
+
+    - name: Rust Toolchain
+      uses: actions-rs/toolchain@v1.0.6
+      with:
+        profile: minimal
+        toolchain: nightly
+
+    - name: Build
+      run: cargo build --verbose
+
