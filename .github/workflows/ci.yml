@@ -41,6 +41,7 @@ jobs:
 
     - name: Dependencies
       run: |
+        export DYLD_FALLBACK_LIBRARY_PATH="$(xcode-select --print-path)/usr/lib/"
         brew install llvm
         brew install opencv
 
