@@ -2,53 +2,37 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - "*"
   pull_request:
-    branches: [ main ]
+    branches:
+      - "*"
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  ubuntu:
-    runs-on: ubuntu-latest
-
+  src:
+    strategy:
+      matrix:
+        os:
+          - image: ubuntu-latest
+          - image: macos-latest
+    runs-on: ${{ matrix.os.image }}
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Dependencies
-      run: sudo apt-get install clang libclang-dev
+      - name: Dependencies
+        run: ci/deps.sh
+        shell: bash
 
-    - name: OpenCV Installation
-      uses: Dovyski/setup-opencv-action@v1
+      - name: Rust Toolchain
+        uses: actions-rs/toolchain@v1.0.6
+        with:
+          default: true
+          toolchain: nightly
 
-    - name: Rust Toolchain
-      uses: actions-rs/toolchain@v1.0.6
-      with:
-        profile: minimal
-        toolchain: nightly
-
-    - name: Build
-      run: cargo build --verbose
-
-  darwin:
-    runs-on: macos-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: Dependencies
-      run: |
-        brew install opencv
-
-    - name: Rust Toolchain
-      uses: actions-rs/toolchain@v1.0.6
-      with:
-        profile: minimal
-        toolchain: nightly
-
-    - name: Build
-      run: |
-        export DYLD_FALLBACK_LIBRARY_PATH="$(xcode-select --print-path)/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
-        cargo build --verbose
+      - name: Build project
+        run: ci/build.sh
+        shell: bash
