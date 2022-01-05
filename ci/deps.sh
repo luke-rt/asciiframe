@@ -2,12 +2,11 @@
 
 set -vex
 
+ci_dir="$(dirname "$0")"
+
 case "$OSTYPE" in
     darwin*)
-        brew install opencv ;;
+        "$ci_dir/deps-macos.sh" ;;
     linux*)
-        sudo apt-get update
-        sudo apt-get install -y clang libclang-dev
-        sudo ln -s libclang.so.1 /usr/lib/llvm-6.0/lib/libclang.so
-        sudo apt-get install -y libopencv-dev ;;
+        "$ci_dir/deps-linux.sh" ;;
 esac
