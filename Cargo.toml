@@ -13,7 +13,7 @@ name = "asc"
 path = "src/main.rs"
 
 [dependencies]
-clap = { version = "3.0.0", features = ["derive", "cargo"] }
+clap = { version = "3.0.4", features = ["derive", "cargo"] }
 opencv = "0.61"
 colored = "2"
 termsize = "0.1.6"
