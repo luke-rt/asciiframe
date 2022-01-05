@@ -46,11 +46,11 @@ pub fn render(
 			imgproc::INTER_AREA,
 		)?;
 
-		if let Some(P) = output {
+		if let Some(p) = output {
 			// if output to file
-			render_frame_to_file(&resized, strategy, P)?;
+			render_frame_to_file(&resized, strategy, p)?;
 
-		// TODO: tell bash script to wait for time_d milliseconds
+		    // TODO: tell bash script to wait for time_d milliseconds
 		} else {
 			// if output to stdout
 			print!("{esc}c", esc = 27 as char);

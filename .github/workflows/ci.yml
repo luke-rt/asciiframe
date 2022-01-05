@@ -52,4 +52,3 @@ jobs:
       run: |
 	    export DYLD_FALLBACK_LIBRARY_PATH="$(xcode-select --print-path)/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
         cargo build --verbose
-
