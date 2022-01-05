@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -vex
 
 sudo apt-get update
