@@ -34,15 +34,12 @@ jobs:
 
   darwin:
     runs-on: macos-latest
-
     steps:
     - name: Checkout
       uses: actions/checkout@v2
 
     - name: Dependencies
       run: |
-        export DYLD_FALLBACK_LIBRARY_PATH="$(xcode-select --print-path)/usr/lib/"
-        brew install llvm
         brew install opencv
 
     - name: Rust Toolchain
@@ -52,5 +49,7 @@ jobs:
         toolchain: nightly
 
     - name: Build
-      run: cargo build --verbose
+      run: |
+	    export DYLD_FALLBACK_LIBRARY_PATH="$(xcode-select --print-path)/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
+        cargo build --verbose
 
