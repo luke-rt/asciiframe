@@ -14,9 +14,11 @@ $ asc [OPTIONS] --file <FILE>
 ### Options
 File
 ```-f, --file <FILE```
+Specify the input video file to be convertered
 
 Output
 ```-o, --output <OUTPUT>```
+Optional filename for asciiframe to write rendered output to, which can be run later to display the video
 
 ## Installation
 
