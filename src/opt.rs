@@ -1,7 +1,7 @@
 use clap::Parser;
 use std::path::PathBuf;
 
-use crate::app::validators;
+use crate::validators;
 
 #[derive(Parser)]
 #[clap(about, version, author)]

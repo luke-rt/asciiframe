@@ -8,14 +8,22 @@
 )]
 // #![warn(clippy::missing_docs_in_private_items)]
 
-mod app;
+use clap::Parser;
 
-fn main() {
-	println!("\n---ASCIIFRAME---\n");
+mod error;
+mod opt;
+mod converter;
+mod renderer;
+mod validators;
 
-	if let Err(e) = app::main() {
-		// TODO: add colors
-		println!("error: {}\n", e);
-		println!("For more information try --help");
-	}
+pub fn main() {
+	let opts = opt::Opt::parse();
+
+	let strategy = converter::ASCII;
+	// TODO: implement colors opt
+
+    if let Err(e) = renderer::render(&opts.file, opts.output.as_deref(), strategy) {
+        println!("{}", e);
+    }
 }
+

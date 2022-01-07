@@ -5,21 +5,22 @@
 //     spit out ascii to either stdout or bash script
 //     await the required amt of time before next frame to comply with fps
 use std::path::Path;
-use std::result::Result;
 use std::thread::sleep;
 use std::time::{Duration, SystemTime};
 
 use opencv::prelude::*;
-use opencv::{core, imgproc, videoio, Error};
+use opencv::{core, imgproc, videoio};
 use termsize;
 
-use crate::app::converter;
+use crate::converter;
+use crate::error::*;
+
 
 pub fn render(
 	filename: &Path,
 	output: Option<&Path>,
 	strategy: u8,
-) -> Result<(), Error> {
+) -> Result<()> {
 	let mut capture =
 		videoio::VideoCapture::from_file(filename.to_str().unwrap(), 0)?;
 	let frame_count: u64 = capture.get(videoio::CAP_PROP_FRAME_COUNT)? as u64;
@@ -50,7 +51,7 @@ pub fn render(
 			// if output to file
 			render_frame_to_file(&resized, strategy, p)?;
 
-		    // TODO: tell bash script to wait for time_d milliseconds
+			// TODO: tell bash script to wait for time_d milliseconds
 		} else {
 			// if output to stdout
 			print!("{esc}c", esc = 27 as char);
@@ -70,7 +71,7 @@ pub fn render(
 	Ok(())
 }
 
-fn render_frame(frame: &Mat, strategy: u8) -> Result<(), Error> {
+fn render_frame(frame: &Mat, strategy: u8) -> Result<()> {
 	let ascii = converter::convert_frame(frame, strategy)?;
 
 	println!("{}", ascii);
@@ -82,7 +83,7 @@ fn render_frame_to_file(
 	frame: &Mat,
 	strategy: u8,
 	output: &Path,
-) -> Result<(), Error> {
+) -> Result<()> {
 	let ascii = converter::convert_frame(frame, strategy)?;
 
 	println!("{}", output.display());
