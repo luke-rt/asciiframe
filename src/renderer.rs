@@ -15,7 +15,6 @@ use termsize;
 use crate::converter;
 use crate::error::*;
 
-
 pub fn render(
 	filename: &Path,
 	output: Option<&Path>,
@@ -51,7 +50,7 @@ pub fn render(
 			// if output to file
 			render_frame_to_file(&resized, strategy, p)?;
 
-			// TODO: tell bash script to wait for time_d milliseconds
+		// TODO: tell bash script to wait for time_d milliseconds
 		} else {
 			// if output to stdout
 			print!("{esc}c", esc = 27 as char);

@@ -10,9 +10,9 @@
 
 use clap::Parser;
 
+mod converter;
 mod error;
 mod opt;
-mod converter;
 mod renderer;
 mod validators;
 
@@ -22,8 +22,9 @@ pub fn main() {
 	let strategy = converter::ASCII;
 	// TODO: implement colors opt
 
-    if let Err(e) = renderer::render(&opts.file, opts.output.as_deref(), strategy) {
-        println!("{}", e);
-    }
+	if let Err(e) =
+		renderer::render(&opts.file, opts.output.as_deref(), strategy)
+	{
+		println!("{}", e);
+	}
 }
-

@@ -4,9 +4,7 @@ use std::path::Path;
 
 use crate::error::*;
 
-pub fn path_is_readable_video<P: AsRef<Path> + ?Sized>(
-	p: &P,
-) -> Result<()> {
+pub fn path_is_readable_video<P: AsRef<Path> + ?Sized>(p: &P) -> Result<()> {
 	let path = p.as_ref();
 
 	if path.is_dir() {
@@ -14,7 +12,6 @@ pub fn path_is_readable_video<P: AsRef<Path> + ?Sized>(
 			"{}: Input path must be a video file, not a directory",
 			path.display()
 		)));
-
 	}
 
 	// TODO: verify that the filetype is MP4, MPEG, GIF, etc
@@ -28,7 +25,10 @@ pub fn cwd_is_writable<P: AsRef<Path> + ?Sized>(p: &P) -> Result<()> {
 	let path = p.as_ref();
 
 	if !path.is_dir() {
-		return Err(Error::from(format!("Not a directory: {}", path.display())));
+		return Err(Error::from(format!(
+			"Not a directory: {}",
+			path.display()
+		)));
 	}
 	if path.writable() {
 		// TODO: implement writability check independently(maybe by attempting to write to the dir and returning the Result)
@@ -41,13 +41,14 @@ pub fn cwd_is_writable<P: AsRef<Path> + ?Sized>(p: &P) -> Result<()> {
 	)))
 }
 
-pub fn file_does_not_exist<P: AsRef<Path> + ?Sized>(
-	p: &P,
-) -> Result<()> {
+pub fn file_does_not_exist<P: AsRef<Path> + ?Sized>(p: &P) -> Result<()> {
 	let path = p.as_ref();
 
 	if path.exists() {
-		return Err(Error::from(format!("File already exists: {}", path.display())));
+		return Err(Error::from(format!(
+			"File already exists: {}",
+			path.display()
+		)));
 	}
 
 	Ok(())

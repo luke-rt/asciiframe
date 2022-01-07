@@ -11,10 +11,7 @@ pub const CHARS: [char; 11] =
 pub const ASCII: u8 = 0;
 pub const COLOR_ASCII: u8 = 1;
 
-pub fn convert_frame(
-	frame: &Mat,
-	strategy: u8,
-) -> Result<String> {
+pub fn convert_frame(frame: &Mat, strategy: u8) -> Result<String> {
 	let mut res = String::default();
 
 	for i in 0..frame.rows() {
@@ -37,7 +34,7 @@ fn convert_pxl(bgr: &opencv::core::Vec3b, strategy: u8) -> Result<String> {
 	match strategy {
 		ASCII => Ok(to_ascii(r, g, b, strategy)?.to_string()),
 		COLOR_ASCII => Ok(to_color_ascii(r, g, b, strategy)?),
-        _ => Err(Error::from("Invalid strategy code"))
+		_ => Err(Error::from("Invalid strategy code")),
 	}
 }
 
@@ -57,19 +54,19 @@ fn to_color_ascii(r: u8, g: u8, b: u8, strategy: u8) -> Result<String> {
 fn rgb_to_ascii_char(r: u8, g: u8, b: u8, strategy: u8) -> Result<char> {
 	let brightness: f32;
 
-    match strategy {
-        ASCII => {
-            brightness =
-			    0.2126 * (r as f32) + 0.7152 * (g as f32) + 0.0722 * (b as f32);
-        }
-        COLOR_ASCII => {
-            brightness =
-			    0.267 * (r as f32) + 0.642 * (g as f32) + 0.091 * (b as f32);
-        }
-        _ => {
-            return Err(Error::from("Invalid strategy code"));
-        }
-    }
+	match strategy {
+		ASCII => {
+			brightness =
+				0.2126 * (r as f32) + 0.7152 * (g as f32) + 0.0722 * (b as f32);
+		}
+		COLOR_ASCII => {
+			brightness =
+				0.267 * (r as f32) + 0.642 * (g as f32) + 0.091 * (b as f32);
+		}
+		_ => {
+			return Err(Error::from("Invalid strategy code"));
+		}
+	}
 
 	Ok(CHARS[(10.0 * brightness / 255.0) as usize])
 }
