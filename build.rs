@@ -1,5 +1,7 @@
 #[cfg(target_os = "linux")]
-fn main() {}
+fn main() {
+    ::std::env::set_var("LIBCLANG_PATH", "/usr/lib/llvm-10/lib/libclang.so");
+}
 
 #[cfg(target_os = "macos")]
 fn main() {
