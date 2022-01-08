@@ -22,6 +22,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
+      - name: Dependencies
+        run: ci/deps.sh
+        shell: bash
+        
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
