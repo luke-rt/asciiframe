@@ -13,10 +13,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - target: x86_64-unknown-linux-gnu
-            os: ubuntu-latest
           - target: x86_64-apple-darwin
             os: macos-latest
+          - target: x86_64-unknown-linux-gnu
+            os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -24,7 +24,9 @@ jobs:
         
       - name: Dependencies
         if: matrix.os == 'ubuntu-latest'
-        run: sudo apt-get install -y clang
+        run: |
+          sudo apt-get install -y clang
+          sudo ln -s libclang.so.1 /usr/lib/llvm-10/lib/libclang.so
         
       - name: Install Rust
         uses: actions-rs/toolchain@v1
