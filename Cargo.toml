@@ -18,3 +18,7 @@ opencv = "0.61"
 colored = "2"
 termsize = "0.1.6"
 faccess = "0.2.3"
+
+[env]
+DYLD_FALLBACK_LIBRARY_PATH = "$(xcode-select --print-path)/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
+LIBCLANG_PATH = "/usr/lib/llvm-10/lib/libclang.so"
