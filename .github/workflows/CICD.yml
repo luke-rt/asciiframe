@@ -26,8 +26,9 @@ jobs:
       - name: Rust Toolchain
         uses: actions-rs/toolchain@v1.0.6
         with:
-          default: true
           toolchain: nightly
+          target: ${{ matrix.target }}
+          default: true
 
       - name: Dependencies
         run: ci/deps.sh
