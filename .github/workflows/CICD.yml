@@ -37,6 +37,7 @@ jobs:
         shell: bash
 
       - name: Build binary
+        run: export
         uses: actions-rs/cargo@v1
         with:
           use-cross: true
