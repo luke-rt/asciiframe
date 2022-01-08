@@ -1,12 +1,12 @@
 #![forbid(unsafe_code)]
 #![warn(warnings, rust_2018_idioms)]
 #![warn(clippy::all, clippy::pedantic)]
+// #![warn(clippy::missing_docs_in_private_items)]
 #![allow(
 	clippy::float_arithmetic,
 	clippy::implicit_return,
 	clippy::needless_return
 )]
-// #![warn(clippy::missing_docs_in_private_items)]
 
 use clap::Parser;
 

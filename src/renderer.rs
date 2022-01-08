@@ -12,10 +12,9 @@ use std::time::{Duration, SystemTime};
 
 use opencv::prelude::*;
 use opencv::{core, imgproc, videoio};
-use termsize;
 
 use crate::converter;
-use crate::error::*;
+use crate::error::Result;
 
 pub fn render(
 	filename: &Path,
@@ -47,8 +46,8 @@ pub fn render(
 			&frame,
 			&mut resized,
 			core::Size {
-				width: term.cols as i32,
-				height: term.rows as i32,
+				width: i32::from(term.cols),
+				height: i32::from(term.rows),
 			},
 			0.0,
 			0.0,

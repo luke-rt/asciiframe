@@ -2,7 +2,7 @@ use faccess::PathExt;
 use std::fs::File;
 use std::path::Path;
 
-use crate::error::*;
+use crate::error::{Error, Result};
 
 pub fn path_is_readable_video<P: AsRef<Path> + ?Sized>(p: &P) -> Result<()> {
 	let path = p.as_ref();
