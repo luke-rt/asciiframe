@@ -1,6 +1,7 @@
 // given frame use conversion method on frame
 // return string of ascii characters for that frame
-use colored::Colorize;
+// use ansi_term::Colour::Fixed;
+// use ansi_colours::ansi256_from_rgb;
 use opencv::prelude::*;
 
 use crate::error::{Error, Result};
@@ -62,8 +63,5 @@ fn to_ascii(r: u8, g: u8, b: u8, strategy: u8) -> Result<char> {
 }
 
 fn to_color_ascii(r: u8, g: u8, b: u8, strategy: u8) -> Result<String> {
-	Ok(to_ascii(r, g, b, strategy)?
-		.to_string()
-		.truecolor(r, g, b)
-		.to_string())
+	Ok(to_ascii(r, g, b, strategy)?.to_string())
 }

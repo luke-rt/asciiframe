@@ -24,7 +24,7 @@ pub struct Opt {
         short,
         long,
         parse(from_os_str),
-        validator_os = validators::path_is_readable_video
+        validator_os = validators::path_is_readable_file
     )]
 	pub file: PathBuf,
 }

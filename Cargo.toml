@@ -1,6 +1,6 @@
 [package]
 name = "asciiframe"
-version = "1.0.1"
+version = "1.0.2"
 categories = ["command-line-utilities"]
 description = "Watch any video in the terminal with ASCII"
 homepage = "https://github.com/ltgr/asciiframe"
@@ -15,6 +15,6 @@ path = "src/main.rs"
 [dependencies]
 clap = { version = "3.0.5", features = ["derive", "cargo"] }
 opencv = "0.61"
-colored = "2"
 termsize = "0.1.6"
-faccess = "0.2.3"
+# ansi_term = "0.6.3"
+# ansi_colours = "^1.0"
