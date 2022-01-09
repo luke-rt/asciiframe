@@ -25,7 +25,10 @@ Output
 Optional filename for asciiframe to write rendered output to, which can be run later to display the video
 
 ## Installation
-
+Source
+```
+cargo install --path .
+```
 
 ## Contributing
 ### Building from source
