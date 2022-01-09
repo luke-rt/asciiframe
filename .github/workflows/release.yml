@@ -1,8 +1,9 @@
-name: CICD
+name: Release
 
 on:
-  push:
-  pull_request:
+  workflow_dispatch:
+    inputs:
+      tag:
 
 env:
   CARGO_TERM_COLOR: always
@@ -35,4 +36,10 @@ jobs:
       - name: Build binary
         run: ci/build.sh
 
-      # name: Benchmark
+      - name: Upload binary
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/${{ matrix.target }}/release/asc
+          asset_name: asciiframe-${{ matrix.target }}
+          tag: ${{ github.event.inputs.tag }}
