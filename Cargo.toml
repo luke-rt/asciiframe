@@ -1,6 +1,6 @@
 [package]
 name = "asciiframe"
-version = "1.0.2"
+version = "1.1.0"
 categories = ["command-line-utilities"]
 description = "Watch any video in the terminal with ASCII"
 homepage = "https://github.com/ltgr/asciiframe"
