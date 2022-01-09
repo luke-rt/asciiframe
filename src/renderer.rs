@@ -13,8 +13,10 @@ use std::time::{Duration, SystemTime};
 use opencv::prelude::*;
 use opencv::{core, imgproc, videoio};
 
+use terminal_size::{Width, Height, terminal_size};
+
 use crate::converter;
-use crate::error::Result;
+use crate::error::{Error, Result};
 
 pub fn render(
 	filename: &Path,
@@ -25,7 +27,7 @@ pub fn render(
 		videoio::VideoCapture::from_file(filename.to_str().unwrap(), 0)?;
 	let frame_count: u64 = capture.get(videoio::CAP_PROP_FRAME_COUNT)? as u64;
 	let time_d: f32 = (1.0 / capture.get(videoio::CAP_PROP_FPS)?) as f32;
-	let term = termsize::get().unwrap();
+
 
 	if let Some(p) = output {
 		File::create(p)?.write_all(
@@ -42,32 +44,37 @@ pub fn render(
 		capture.read(&mut frame)?;
 
 		let mut resized = Mat::default();
-		imgproc::resize(
-			&frame,
-			&mut resized,
-			core::Size {
-				width: i32::from(term.cols),
-				height: i32::from(term.rows),
-			},
-			0.0,
-			0.0,
-			imgproc::INTER_AREA,
-		)?;
 
-		if let Some(p) = output {
-			// if output to file
-			render_frame_to_file(&resized, strategy, p)?;
-		} else {
-			// if output to stdout
-			render_frame(&resized, strategy)?;
+        if let Some((Width(w), Height(h))) = terminal_size() {
+            imgproc::resize(
+                &frame,
+                &mut resized,
+                core::Size {
+                    width: i32::from(w-1),
+                    height: i32::from(h-1),
+                },
+                0.0,
+                0.0,
+                imgproc::INTER_AREA,
+            )?;
 
-			let elapsed = start.elapsed().unwrap().as_secs_f32();
-			if elapsed < time_d {
-				sleep(Duration::from_millis(
-					((time_d - elapsed) * 1000.0) as u64,
-				));
-			}
-		}
+            if let Some(p) = output {
+                // if output to file
+                render_frame_to_file(&resized, strategy, p)?;
+            } else {
+                // if output to stdout
+                render_frame(&resized, strategy)?;
+
+                let elapsed = start.elapsed().unwrap().as_secs_f32();
+                if elapsed < time_d {
+                    sleep(Duration::from_millis(
+                        ((time_d - elapsed) * 1000.0) as u64,
+                    ));
+                }
+            }
+        } else {
+            return Err(Error::from("Unable to get terminal size"))
+        }
 	}
 
 	Ok(())

@@ -26,9 +26,12 @@ Optional filename for asciiframe to write rendered output to, which can be run l
 
 ## Installation
 Source
+
+Clone the repository then install it with
 ```
 cargo install --path .
 ```
+Make sure `~/.cargo/bin` is in your path
 
 ## Contributing
 ### Building from source
