@@ -1,3 +1,0 @@
-[env]
-DYLD_FALLBACK_LIBRARY_PATH="/Applications/Xcode_13.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
-LIBCLANG_PATH = "/usr/lib/llvm-10/lib/libclang.so"

@@ -37,13 +37,10 @@ jobs:
         shell: bash
 
       - name: Build binary
-        uses: actions-rs/cargo@v1
-        with:
-          # use-cross: true
-          command: build
-          args: --verbose --release --locked --target=${{ matrix.target }}
+        run: ci/build.sh
 
       # name: Benchmark
+
       - name: Upload binary
         if: startsWith(github.ref, 'refs/tags/')
         uses: svenstaro/upload-release-action@v2
