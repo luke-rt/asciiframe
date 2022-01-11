@@ -1,14 +1,12 @@
-use clap::Parser;
 use std::path::PathBuf;
+
+use clap::Parser;
 
 use crate::validators;
 
 #[derive(Parser)]
 #[clap(about, version, author)]
 pub struct Opt {
-	#[clap(help = "Print everything", short, long)]
-	pub verbose: bool,
-
 	#[clap(
 		help = "Output to a script file for sharing",
 		short,

@@ -1,14 +1,9 @@
-// given frame use conversion method on frame
-// return string of ascii characters for that frame
-// use ansi_term::Colour::Fixed;
-// use ansi_colours::ansi256_from_rgb;
 use opencv::prelude::*;
 
 use crate::error::{Error, Result};
 
 pub const CHARS: [char; 11] =
 	[' ', ' ', '.', ':', '!', '+', '*', 'e', '$', '@', '8'];
-
 pub const ASCII: u8 = 0;
 pub const COLOR_ASCII: u8 = 1;
 

@@ -1,13 +1,9 @@
 #![forbid(unsafe_code)]
 #![warn(warnings, rust_2018_idioms)]
 #![warn(clippy::all, clippy::pedantic)]
-// #![warn(clippy::missing_docs_in_private_items)]
-#![allow(
-	clippy::float_arithmetic,
-	clippy::implicit_return,
-	clippy::needless_return
-)]
+#![allow(clippy::cast_sign_loss, clippy::cast_possible_truncation)]
 
+use ansi_term::Colour::{Green, Red};
 use clap::Parser;
 
 mod converter;
@@ -17,14 +13,17 @@ mod renderer;
 mod validators;
 
 pub fn main() {
+	// TODO: implement colors opt
+	// TODO: replace println! with writeln!(io::stdout.lock())
+
 	let opts = opt::Opt::parse();
 
 	let strategy = converter::ASCII;
-	// TODO: implement colors opt
 
 	if let Err(e) =
 		renderer::render(&opts.file, opts.output.as_deref(), strategy)
 	{
-		println!("{}", e);
+		eprintln!("{} {}", Red.paint("error:"), e);
+		eprintln!("\nFor more information try {}", Green.paint("--help"));
 	}
 }

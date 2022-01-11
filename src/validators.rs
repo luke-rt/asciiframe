@@ -1,3 +1,4 @@
+// TODO: verify that this is needed bc error checking in the app might handle it
 use ::std::fs::{metadata, File};
 use ::std::path::Path;
 
@@ -19,7 +20,6 @@ pub fn path_is_readable_file<P: AsRef<Path> + ?Sized>(p: &P) -> Result<()> {
 }
 
 pub fn cwd_is_writable<P: AsRef<Path> + ?Sized>(p: &P) -> Result<()> {
-	// TODO: verify that this is needed bc error checking in the app might handle it
 	let path = p.as_ref();
 
 	if metadata(path)?.permissions().readonly() {
