@@ -11,4 +11,4 @@ case "$OSTYPE" in
 esac
 
 echo "=== BENCHMARK RESULTS:"
-hyperfine --warmup 3 --prepare "rm -r ci/benchmarks/test.sh || true" "target/release/asc -f ci/benchmarks/test.mov -o ci/benchmarks/test.sh"
+hyperfine --warmup 3 --prepare "rm -r ci/benchmarks/test.sh || true" "target/release/asc -f ci/benchmarks/test.mov -o ci/benchmarks/test.sh" --show-output
