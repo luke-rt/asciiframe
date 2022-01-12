@@ -27,7 +27,14 @@ Output
 Optional filename for asciiframe to write rendered output to, which can be run later to display the video
 
 ## Installation
-### Source
+### Crates.io
+
+```
+cargo install asciiframe
+```
+Make sure `~/.cargo/bin` is in your path
+
+### Git
 
 Clone the repository then install it with
 ```
