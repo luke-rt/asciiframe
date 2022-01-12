@@ -15,7 +15,6 @@ mod validators;
 
 pub fn main() {
 	// TODO: implement colors opt
-	// TODO: replace println! with writeln!(io::stdout.lock())
 
 	let opts = opt::Opt::parse();
 

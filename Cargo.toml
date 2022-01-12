@@ -1,6 +1,6 @@
 [package]
 name = "asciiframe"
-version = "0.1.3"
+version = "0.1.4"
 keywords = ["cli", "ascii", "opencv"]
 categories = ["command-line-utilities"]
 description = "Watch any video in the terminal with ASCII"
