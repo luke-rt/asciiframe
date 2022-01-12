@@ -1,9 +1,11 @@
 <h1 align="center">ASCIIFRAME</h1>
 <p align="center">A CLI tool for viewing videos in the terminal with ASCII<p>
 <p align="center">
-    <img src="https://img.shields.io/github/workflow/status/seggfault/asciiframe/CICD?style=for-the-badge" alt="CICD">
+    <img src="https://img.shields.io/github/last-commit/seggfault/asciiframe?style=for-the-badge" alt="Last Commit">
     <img src="https://img.shields.io/github/license/seggfault/asciiframe?style=for-the-badge" alt="MIT license">
     <img src="https://img.shields.io/crates/v/asciiframe?style=for-the-badge" alt="crates.io version">
+    <img src="https://img.shields.io/github/workflow/status/seggfault/asciiframe/CICD?style=for-the-badge" alt="CICD">
+    <img src="https://img.shields.io/github/languages/code-size/seggfault/asciiframe?style=for-the-badge" alt="File size">
 </p>
 
 ## How To Use
