@@ -27,5 +27,5 @@ pub struct Opt {
 	pub output: Option<PathBuf>,
 
 	#[clap(help = "Use color ascii", short, long)]
-	pub color: Option<PathBuf>,
+	pub color: bool,
 }
