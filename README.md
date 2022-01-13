@@ -10,6 +10,8 @@
     <img href="https://github.com/seggfault/asciiframe/blob/main/docs/demo.gif" src="https://github.com/seggfault/asciiframe/blob/main/docs/demo.gif" alt="Demo">
 </p>
 
+>Note: I am relatively new to rust so any sort of suggestions, questions, and contributions are completely welcome!
+
 ## How To Use
 ### Usage
 ```sh
