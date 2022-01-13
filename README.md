@@ -1,10 +1,13 @@
 <h1 align="center">ASCIIFRAME</h1>
-<p align="center">A CLI tool for viewing videos in the terminal with ASCII<p>
+<p align="center">A CLI tool that converts videos to ASCII and displays them to the terminal on the fly<p>
 <p align="center">
     <img href="https://crates.io/crates/asciiframe" src="https://img.shields.io/crates/v/asciiframe?style=for-the-badge" alt="crates.io version">
     <img href="https://github.com/seggfault/asciiframe/actions/workflows/CICD.yml" src="https://img.shields.io/github/workflow/status/seggfault/asciiframe/CICD?style=for-the-badge" alt="CICD">
     <img href="https://github.com/seggfault/asciiframe/commits/main" src="https://img.shields.io/github/last-commit/seggfault/asciiframe?style=for-the-badge" alt="Last Commit">
     <img href="https://github.com/seggfault/asciiframe/blob/main/LICENSE" src="https://img.shields.io/github/license/seggfault/asciiframe?style=for-the-badge" alt="MIT license">
+</p>
+<p align="center">
+    <img href="https://github.com/seggfault/asciiframe/blob/main/docs/demo.gif" src="https://github.com/seggfault/asciiframe/blob/main/docs/demo.gif" alt="Demo">
 </p>
 
 ## How To Use
