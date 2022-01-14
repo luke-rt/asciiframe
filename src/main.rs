@@ -18,7 +18,7 @@ pub fn main() {
 
 	let opts = opt::Opt::parse();
 
-	let strategy = converter::ASCII;
+	let strategy = converter::Strategy::Ascii;
 
 	if let Err(e) =
 		renderer::render(&opts.file, opts.output.as_deref(), strategy)
