@@ -7,9 +7,9 @@ use std::io::{self, Write};
 use ansi_term::Colour::{Green, Red};
 use clap::Parser;
 
+mod cli;
 mod converter;
 mod error;
-mod cli;
 mod renderer;
 mod validators;
 
@@ -20,9 +20,7 @@ pub fn main() {
 
 	let strategy = converter::Strategy::Ascii;
 
-	if let Err(e) =
-		renderer::render(&opts.file, opts.output.as_deref(), strategy)
-	{
+	if let Err(e) = renderer::render(&opts.file, opts.output.as_deref(), strategy) {
 		let stderr = io::stderr();
 		let mut handle = stderr.lock();
 		write!(
@@ -34,5 +32,4 @@ pub fn main() {
 		)
 		.unwrap();
 	}
-	return;
 }
