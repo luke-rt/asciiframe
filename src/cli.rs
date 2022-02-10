@@ -6,7 +6,7 @@ use crate::validators;
 
 #[derive(Parser)]
 #[clap(about, version, author)]
-pub struct Opt {
+pub struct Opts {
 	#[clap(
         help = "Video filename",
         short,

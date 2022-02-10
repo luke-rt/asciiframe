@@ -1,13 +1,13 @@
-use opencv::prelude::*;
 use crate::error::Result;
+use opencv::prelude::*;
 
 pub const CHARS: [char; 11] =
 	[' ', ' ', '.', ':', '!', '+', '*', 'e', '$', '@', '8'];
 
 #[derive(Copy, Clone, Debug)]
 pub enum Strategy {
-    Ascii,
-    ColorAscii
+	Ascii,
+	ColorAscii,
 }
 
 pub fn convert_frame(frame: &Mat, strategy: Strategy) -> Result<String> {
@@ -30,7 +30,10 @@ fn convert_pxl(bgr: opencv::core::Vec3b, strategy: Strategy) -> Result<String> {
 	let g = *bgr.get(1).unwrap();
 	let r = *bgr.get(2).unwrap();
 
-    Ok(to_ascii(r, g, b, strategy)?.to_string())
+	match strategy {
+		Strategy::Ascii => Ok(to_ascii(r, g, b, strategy)?.to_string()),
+		Strategy::ColorAscii => Ok(to_color_ascii(r, g, b)?),
+	}
 }
 
 // conversion strategies
@@ -51,4 +54,8 @@ fn to_ascii(r: u8, g: u8, b: u8, strategy: Strategy) -> Result<char> {
 	}
 
 	Ok(CHARS[(10.0 * brightness / 255.0) as usize])
+}
+
+fn to_color_ascii(r: u8, g: u8, b: u8) -> Result<String> {
+    Ok(String::from("hello world"))
 }

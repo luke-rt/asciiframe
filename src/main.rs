@@ -9,14 +9,14 @@ use clap::Parser;
 
 mod converter;
 mod error;
-mod opt;
+mod cli;
 mod renderer;
 mod validators;
 
 pub fn main() {
 	// TODO: implement colors opt
 
-	let opts = opt::Opt::parse();
+	let opts = cli::Opts::parse();
 
 	let strategy = converter::Strategy::Ascii;
 
@@ -34,4 +34,5 @@ pub fn main() {
 		)
 		.unwrap();
 	}
+	return;
 }

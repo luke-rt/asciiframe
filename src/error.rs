@@ -9,14 +9,10 @@ pub enum Error {
 
 impl Display for Error {
 	fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-		match self {
-			Error::Io(io_error) => write!(f, "IO ERR: {}", io_error),
-			Error::Opencv(opencv_error) => write!(
-				f,
-				"OPENCV ERR: CODE: {}\n{}",
-				opencv_error.code, opencv_error.message
-			),
-			Error::Msg(error) => write!(f, "ERR: {}", error),
+        match self {
+			Error::Io(io_error) => write!(f, "IO ERR: {io_error}"),
+			Error::Opencv(opencv_error) => write!(f, "{opencv_error}"),
+			Error::Msg(error) => write!(f, "ERR: {error}"),
 		}
 	}
 }

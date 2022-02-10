@@ -7,7 +7,7 @@ description = "Watch any video in the terminal with ASCII"
 homepage = "https://github.com/ltgr/asciiframe"
 authors = ["Luke"]
 license = "MIT"
-edition = "2021"
+edition = "2018"
 exclude = ["ci/benchmarks/*"]
 
 [[bin]]
@@ -16,7 +16,7 @@ path = "src/main.rs"
 
 [dependencies]
 clap = { version = "3.0.7", features = ["derive", "cargo"] }
-opencv = "0.62"
+opencv = "0.63"
 indicatif = "0.16.2"
 terminal_size = "0.1.17"
 ansi_term = "0.12.1"

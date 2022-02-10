@@ -1,9 +1,9 @@
 use std::{
-    fs::{File, OpenOptions},
-    io::{self, Write},
-    path::Path,
-    thread::sleep,
-    time::{Duration, SystemTime}
+	fs::{File, OpenOptions},
+	io::{self, Write},
+	path::Path,
+	thread::sleep,
+	time::{Duration, SystemTime},
 };
 
 use indicatif::ProgressBar;
@@ -11,15 +11,13 @@ use opencv::prelude::*;
 use opencv::{core, imgproc, videoio};
 use terminal_size::{terminal_size, Height, Width};
 
-use crate::{
-    converter::{self, Strategy},
-    error::{Error, Result}
-};
+use crate::converter;
+use crate::error::{Error, Result};
 
 pub fn render(
 	filename: &Path,
 	output: Option<&Path>,
-	strategy: Strategy,
+	strategy: converter::Strategy,
 ) -> Result<()> {
 	if let Some(p) = output {
 		render_to_file(filename, p, strategy)?;
@@ -30,7 +28,7 @@ pub fn render(
 	Ok(())
 }
 
-fn render_to_file(fin: &Path, fout: &Path, strategy: Strategy) -> Result<()> {
+fn render_to_file(fin: &Path, fout: &Path, strategy: converter::Strategy) -> Result<()> {
 	let mut capture =
 		videoio::VideoCapture::from_file(fin.to_str().unwrap(), 0)?;
 	let frame_count: u64 = capture.get(videoio::CAP_PROP_FRAME_COUNT)? as u64;
@@ -71,7 +69,7 @@ fn render_to_file(fin: &Path, fout: &Path, strategy: Strategy) -> Result<()> {
 	Ok(())
 }
 
-fn render_to_stdout(filename: &Path, strategy: Strategy) -> Result<()> {
+fn render_to_stdout(filename: &Path, strategy: converter::Strategy) -> Result<()> {
 	let mut capture =
 		videoio::VideoCapture::from_file(filename.to_str().unwrap(), 0)?;
 	let frame_count: u64 = capture.get(videoio::CAP_PROP_FRAME_COUNT)? as u64;
@@ -120,7 +118,7 @@ fn render_to_stdout(filename: &Path, strategy: Strategy) -> Result<()> {
 fn render_frame_stdout(
 	handle: &mut io::StdoutLock<'_>,
 	frame: &Mat,
-	strategy: Strategy,
+	strategy: converter::Strategy,
 ) -> Result<()> {
 	write!(handle, "{esc}c", esc = 27 as char)?;
 	write!(handle, "{}", converter::convert_frame(frame, strategy)?)?;
@@ -128,7 +126,11 @@ fn render_frame_stdout(
 	Ok(())
 }
 
-fn render_frame_to_file(frame: &Mat, strategy: Strategy, path: &Path) -> Result<()> {
+fn render_frame_to_file(
+	frame: &Mat,
+	strategy: converter::Strategy,
+	path: &Path,
+) -> Result<()> {
 	let mut fout = OpenOptions::new().append(true).open(path)?;
 	fout.write_all(
 		format!(
