@@ -2,7 +2,7 @@
 use ::std::fs::{metadata, File};
 use ::std::path::Path;
 
-use crate::error::{Error, Result};
+use asciiframe::{Error, Result};
 
 pub fn path_is_readable_file<P: AsRef<Path> + ?Sized>(p: &P) -> Result<()> {
 	let path = p.as_ref();

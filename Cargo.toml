@@ -8,11 +8,11 @@ homepage = "https://github.com/ltgr/asciiframe"
 authors = ["Luke"]
 license = "MIT"
 edition = "2018"
-exclude = ["ci/benchmarks/*"]
+exclude = ["ci/*", "examples/*"]
 
 [[bin]]
 name = "asc"
-path = "src/main.rs"
+path = "src/bin/asc/main.rs"
 
 [dependencies]
 clap = { version = "3.0.14", features = ["derive", "cargo"] }

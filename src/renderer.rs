@@ -14,17 +14,13 @@ use terminal_size::{terminal_size, Height, Width};
 use crate::converter;
 use crate::error::{Error, Result};
 
-pub fn render(filename: &Path, output: Option<&Path>, strategy: converter::Strategy) -> Result<()> {
-	if let Some(p) = output {
-		render_to_file(filename, p, strategy)?;
-	} else {
-		render_to_stdout(filename, strategy)?;
-	}
-
-	Ok(())
-}
-
-fn render_to_file(fin: &Path, fout: &Path, strategy: converter::Strategy) -> Result<()> {
+/// # Errors
+///
+/// Will return `Err` if video capture from file fails OR
+/// accessing frame count fails OR
+/// reading frame data fails OR
+/// writing ascii data to a file fails
+pub fn render_to_file(fin: &Path, fout: &Path, strategy: converter::Strategy) -> Result<()> {
 	let mut capture = videoio::VideoCapture::from_file(fin.to_str().unwrap(), 0)?;
 	let frame_count: u64 = capture.get(videoio::CAP_PROP_FRAME_COUNT)? as u64;
 	let pb = ProgressBar::new(frame_count);
@@ -64,8 +60,14 @@ fn render_to_file(fin: &Path, fout: &Path, strategy: converter::Strategy) -> Res
 	Ok(())
 }
 
-fn render_to_stdout(filename: &Path, strategy: converter::Strategy) -> Result<()> {
-	let mut capture = videoio::VideoCapture::from_file(filename.to_str().unwrap(), 0)?;
+/// # Errors
+///
+/// Will return `Err` if video capture from file fails OR
+/// accessing frame count fails OR
+/// reading frame data fails OR
+/// writing ascii to stdout fails
+pub fn render_to_stdout(fin: &Path, strategy: converter::Strategy) -> Result<()> {
+	let mut capture = videoio::VideoCapture::from_file(fin.to_str().unwrap(), 0)?;
 	let frame_count: u64 = capture.get(videoio::CAP_PROP_FRAME_COUNT)? as u64;
 	let time_d: f32 = (1.0 / capture.get(videoio::CAP_PROP_FPS)?) as f32;
 	let stdout = io::stdout();

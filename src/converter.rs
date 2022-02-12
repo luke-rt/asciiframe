@@ -9,6 +9,9 @@ pub enum Strategy {
 	ColorAscii,
 }
 
+/// # Errors
+///
+/// Will return `Err` if grabbing RGB values from `frame` fail
 pub fn convert_frame(frame: &Mat, strategy: Strategy) -> Result<String> {
 	let mut res = String::default();
 
@@ -50,6 +53,6 @@ fn to_ascii(r: u8, g: u8, b: u8, strategy: Strategy) -> char {
 	CHARS[(10.0 * brightness / 255.0) as usize]
 }
 
-fn to_color_ascii(r: u8, g: u8, b: u8) -> String {
+fn to_color_ascii(_r: u8, _g: u8, _b: u8) -> String {
 	String::from("hello world")
 }

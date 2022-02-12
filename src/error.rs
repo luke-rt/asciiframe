@@ -1,6 +1,8 @@
+use ansi_term::Colour::Red;
 use std::fmt::Display;
 
 #[derive(Debug)]
+
 pub enum Error {
 	Io(::std::io::Error),
 	Opencv(::opencv::Error),
@@ -44,3 +46,13 @@ impl From<String> for Error {
 impl std::error::Error for Error {}
 
 pub type Result<T> = std::result::Result<T, Error>;
+
+pub fn default_error_handler(handle: &mut dyn std::io::Write, error: &Error) {
+	writeln!(
+		handle,
+		"{} {}\n\nFor more information go to docs.rs/asciiframe",
+		Red.paint("error:"),
+		error
+	)
+	.unwrap();
+}
