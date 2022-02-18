@@ -54,5 +54,8 @@ To build from source, you'll need `opencv` and `clang`
 ### Authors and Contributors
 - [ltgr](https://github.com/ltgr)(Luke T)
 
+## TODO
+- Port from [Rust bindings for the opencv C++ library](https://github.com/twistedfall/opencv-rust) to the pure rust [image-rs/image](https://github.com/image-rs/image) library
+
 ### License
 [MIT License](https://github.com/ltgr/turbo/blob/master/LICENSE)
