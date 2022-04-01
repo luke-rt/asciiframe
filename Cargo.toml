@@ -15,7 +15,7 @@ name = "asc"
 path = "src/bin/asc/main.rs"
 
 [dependencies]
-clap = { version = "3.1.6", features = ["derive", "cargo"] }
+clap = { version = "3.1.8", features = ["derive", "cargo"] }
 opencv = "0.63"
 indicatif = "0.16.2"
 terminal_size = "0.1.17"
