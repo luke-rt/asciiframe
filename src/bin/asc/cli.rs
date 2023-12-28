@@ -2,28 +2,18 @@ use std::path::PathBuf;
 
 use clap::Parser;
 
-use crate::validators;
-
-#[derive(Parser)]
-#[clap(about, version, author)]
-pub struct Opts {
-	#[clap(
-        help = "Video filename",
-        short,
-        long,
-        parse(from_os_str),
-        validator_os = validators::path_is_readable_file
-    )]
+#[derive(Parser, Debug)]
+#[command(about, version, author)]
+pub struct Args {
+	#[arg(help = "Video filename", short, long, value_name = "INPUT FILE")]
 	pub file: PathBuf,
 
-	#[clap(
+	#[arg(
 		help = "Output to a script file for sharing",
 		short,
 		long,
-        parse(from_os_str),
-        validator_os = validators::cwd_is_writable,
-        validator_os = validators::file_does_not_exist,
-    )]
+		value_name = "OUTPUT FILE"
+	)]
 	pub output: Option<PathBuf>,
 
 	#[clap(help = "Use color ascii", short, long)]

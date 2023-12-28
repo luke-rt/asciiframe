@@ -4,4 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-asciiframe = "0.1.4"
+asciiframe = "1.2.0"
