@@ -1,7 +1,11 @@
 #![forbid(unsafe_code)]
 #![warn(warnings)]
 #![warn(clippy::all, clippy::pedantic)]
-#![allow(clippy::cast_sign_loss, clippy::cast_possible_truncation, clippy::get_first)]
+#![allow(
+	clippy::cast_sign_loss,
+	clippy::cast_possible_truncation,
+	clippy::get_first
+)]
 
 use opencv::prelude::*;
 use opencv::{core, imgproc, videoio};
@@ -26,34 +30,49 @@ pub struct Frame {
 /// * [`error::Error::Io`] if an `std::io` error occurs
 pub fn render(
 	fin: &Path,
-	width: u16,
-	height: u16,
+	width: i32,
+	height: i32,
 	mut render_frame: impl FnMut(&Frame) -> error::Result<()>,
 ) -> error::Result<()> {
-	let mut capture = videoio::VideoCapture::from_file(fin.to_str().ok_or(error::Error::InvalidPath(fin.to_owned()))?, 0)?;
+	if !fin.exists() {
+		return Err(error::Error::InvalidPath(fin.to_owned()));
+	}
+	if width <= 0 || height <= 0 {
+		return Err(error::Error::InvalidBounds(width, height));
+	}
+
+	let mut capture = videoio::VideoCapture::from_file(
+		fin.to_str()
+			.ok_or(error::Error::InvalidPath(fin.to_owned()))?,
+		0,
+	)?;
 	let frame_count: u64 = capture.get(videoio::CAP_PROP_FRAME_COUNT)? as u64;
 
 	for i in 0..frame_count {
 		let start = SystemTime::now();
 
-		let mut original_frame = Mat::default();
-		capture.read(&mut original_frame)?;
+		let mut frame = Mat::default();
+		capture.read(&mut frame)?;
 
-		let mut resized_frame = Mat::default();
-		imgproc::resize(
-			&original_frame,
-			&mut resized_frame,
-			core::Size {
-				width: i32::from(width - 1),
-				height: i32::from(height - 1),
-			},
-			0.0,
-			0.0,
-			imgproc::INTER_AREA,
-		)?;
+		if frame.cols() > width || frame.rows() > height {
+			let mut resized_frame = Mat::default();
+			imgproc::resize(
+				&frame,
+				&mut resized_frame,
+				core::Size {
+					width,
+					height,
+				},
+				0.0,
+				0.0,
+				imgproc::INTER_AREA,
+			)?;
+
+			frame = resized_frame;
+		}
 
 		render_frame(&Frame {
-			data: converter::convert_frame(&resized_frame)?,
+			data: converter::convert_frame(&frame)?,
 			index: i,
 			total: frame_count,
 			fps: capture.get(videoio::CAP_PROP_FPS)? as u16,

@@ -29,5 +29,7 @@ fn convert_pxl(bgr: opencv::core::Vec3b) -> char {
 fn to_ascii(r: u8, g: u8, b: u8) -> char {
 	let brightness = 0.2126 * f32::from(r) + 0.7152 * f32::from(g) + 0.0722 * f32::from(b);
 
-	CHARS[(10.0 * brightness / 255.0) as usize]
+	*CHARS
+		.get((10.0 * brightness / 255.0) as usize)
+		.expect("RGB values should not exceed 255")
 }

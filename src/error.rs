@@ -9,7 +9,9 @@ pub enum Error {
 	#[error("OpenCV Error")]
 	OpenCV(#[from] opencv::Error),
 	#[error("Invalid input file path")]
-	InvalidPath(PathBuf)
+	InvalidPath(PathBuf),
+	#[error("Invalid target bounds")]
+	InvalidBounds(i32, i32),
 }
 
 pub type Result<T> = std::result::Result<T, Error>;

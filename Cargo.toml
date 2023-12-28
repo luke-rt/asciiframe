@@ -8,7 +8,7 @@ homepage = "https://github.com/luke-rt/asciiframe"
 authors = ["Luke"]
 license = "MIT"
 edition = "2021"
-exclude = ["ci/*", "examples/*"]
+exclude = ["tests/sources"]
 
 [dependencies]
 thiserror = "1.0"

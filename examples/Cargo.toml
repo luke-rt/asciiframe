@@ -1,7 +1,0 @@
-[package]
-name = "asc-examples"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-asciiframe = "1.2.0"

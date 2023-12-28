@@ -29,28 +29,25 @@ Output
 Optional filename for asciiframe to write rendered output to, which can be run later to display the video
 
 ## Installation
-### Crates.io
-
-MacOS:
-- `brew install pkg-config opencv`
-- If you get `dyld: Library not loaded: @rpath/libclang.dylib` then run `export DYLD_FALLBACK_LIBRARY_PATH="$(xcode-select --print-path)/usr/lib/"` first
-
+Ensure `opencv` and `pkg-config` is installed!
 ```
 cargo install asciiframe
 ```
 Make sure `~/.cargo/bin` is in your path
 
-Make sure `~/.cargo/bin` is in your path
+MacOS:
+- `brew install pkg-config opencv`
+- If you get `dyld: Library not loaded: @rpath/libclang.dylib` then run `export DYLD_FALLBACK_LIBRARY_PATH="$(xcode-select --print-path)/usr/lib/"` first
 
 ## Contributing
-### Building from source
-To build from source, you'll need `opencv` and `clang`
 
 ## About
 ### Authors and Contributors
 - [luke-rt](https://github.com/luke-rt)(Luke T)
 
 ## TODO
+- prebuilt binaries
+- examples
 
 ### License
 [MIT License](https://github.com/luke-rt/asciiframe/blob/main/LICENSE)
